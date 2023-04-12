@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function PostTable() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     // Fetch posts from API
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(posts => setPosts(posts));
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((posts) => setPosts(posts));
   }, []);
 
   const handleRemovePost = (postId) => {
     // Remove post from state
-    setPosts(posts.filter(post => post.id !== postId));
+    setPosts(posts.filter((post) => post.id !== postId));
 
     // Send DELETE request to API endpoint to delete post
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
-      method: 'DELETE'
+      method: "DELETE",
     });
   };
 
@@ -24,16 +24,18 @@ function PostTable() {
     <table>
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Body</th>
+          <th>Index</th>
+          <th>Users</th>
+          <th>Email</th>
           <th>Remove</th>
         </tr>
       </thead>
       <tbody>
-        {posts.map(post => (
+        {posts.map((post,index) => (
           <tr key={post.id}>
-            <td>{post.title}</td>
-            <td>{post.body}</td>
+            <td>{index+1}</td>
+            <td>{post.name}</td>
+            <td>{post.email}</td>
             <td>
               <button onClick={() => handleRemovePost(post.id)}>Remove</button>
             </td>
